@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Iruda</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body class="dark-background">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand font-bold" href="#">이루다</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-dropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbar-dropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link font-medium" href="/process/upload-popup">글 올리기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-medium" href="/board">피드 보기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-medium font-pink" href="/">로그아웃</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="profile-top-container">
+                <div class="row">
+                    <!-- profile image -->
+                    <div class="col-lg-3">
+                        <img class="profile-default-image" src="/images/profile_default.png" alt="">
+                    </div>
+                    <div class="col-lg-9">
+                        <!-- name -->
+                        <h3 class="profile-name font-bold"><%= login_name %></h3>
+                        <!-- self-introduction -->
+                        <p class="profile-introduction font-light"><%= login_email %></p>
+                        <!-- interest -->
+                        <img class="profile-interest" src="images/exercise.png" alt="">
+                        <img class="profile-interest" src="images/smoke.png" alt="">
+                        <img class="profile-interest" src="images/selfdev.png" alt="">
+                        <img class="profile-interest" src="images/save.png" alt="">
+                        <img class="profile-interest" src="images/certificate.png" alt="">
+                        <img class="profile-interest" src="images/language.png" alt="">
+                        <img class="profile-interest" src="images/alcohol.png" alt="">
+                        <img class="profile-interest" src="images/travel.png" alt="">
+                        <img class="profile-interest" src="images/book.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="profile-feed">
+                <div class="row">
+                    <!-- profile feed length -->
+					<% if (board.length === 0) { %>
+					<div style="padding-left: 8%;">
+						<h2 class="font-medium-black">오른쪽 위 "글 올리기"에서 새 글을 올려주세요!</h2>
+					</div>
+					<% } else { %>
+                    	<% for (var i=0; i<board.length; i++) { %>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-header font-light-black">
+                                    <%= board[i].board_date %>
+                                </div>
+                                <!-- feed images -->
+                                <img src="<%= board[i].picture_url %>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <!-- feed paragraphs -->
+                                    <p class="card-text font-light-black profile-card-p">
+                                        <%= board[i].description %>
+									</p>
+									<img src="/images/heart.png" alt="" style="width: 1rem;">
+									<span class="font-light-black"><%= board[i].like_count %></span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    	<% } %>
+					<% } %>
+                </div>
+            </div>
+            <footer class="profile-footer dark-background">
+                <p class="font-light">Copyright 2020 Freeman Inc. All rights reserved.</p>
+            </footer>
+        </div>
+
+    </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</html>

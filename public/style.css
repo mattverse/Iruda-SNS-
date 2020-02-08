@@ -1,0 +1,424 @@
+/* Fonts */
+@font-face { font-family: 'GmarketSansBold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'GmarketSansMedium'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'GmarketSansLight'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+.font-bold {
+    font-family: 'GmarketSansBold';
+    color: white;
+}
+
+.font-medium {
+    font-family: 'GmarketSansMedium';
+    color: white;
+}
+
+.font-light {
+    font-family: 'GmarketSansLight';
+    color: white;
+}
+
+.font-bold-black {
+    font-family: 'GmarketSansBold';
+    color: black;
+}
+
+.font-medium-black {
+    font-family: 'GmarketSansMedium';
+    color: black;
+}
+
+.font-light-black {
+    font-family: 'GmarketSansLight';
+    color: black;
+}
+
+.font-pink {
+    color: #f37e84 !important;
+}
+
+
+/* Backgrounds */
+.dark-background {
+    background-color: #13081c;
+}
+
+.white-background {
+    background-color: white;
+}
+
+/* image invert */
+.img-invert{
+    filter: invert(0.7);
+}
+
+/* Navbar */
+.navbar {
+    margin-top: 2rem;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+}
+
+.nav-item {
+    margin-left: 0.8rem;
+}
+
+/* homepage.html */
+.homepage-center {
+    text-align: center;
+}
+
+.homepage-slogan {
+    margin-top: 3rem;
+    font-size: 3.5rem;
+    line-height: 1.3;
+}
+
+.homepage-black-img {
+    filter: grayscale(100%);
+}
+
+.homepage-copyright {
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    margin-bottom: 2rem;
+}
+
+/* login.html */
+.login-center {
+    text-align: center;
+}
+
+.login-bubbles {
+    position: absolute;
+    left: 50%;
+    top: 5rem;
+    margin-left: -56px;
+}
+
+.login-iruda {
+    margin-top: 15rem;
+    margin-bottom: 2rem;
+}
+
+.login-container {
+    padding: 0 40%;
+}
+
+/* signup.html */
+.signup-half-div {
+    width: 50%
+}
+
+.signup-center {
+    text-align: center;
+}
+
+.signup-form-centering {
+    padding: 25% 25%;
+}
+
+.signup-h1 {
+    margin-bottom: 3rem;
+}
+
+.signup-circle-container {
+    text-align: center;
+    margin: 60% 0;
+}
+
+.signup-circle {
+    margin: 0 10px;
+}
+
+.signup-circle-up {
+    margin: 0 10px;
+    position: relative;
+    bottom: 80px;
+}
+
+/* signup-complete */
+.complete-container {
+    text-align: center;
+}
+
+.complete-circle-container {
+    text-align: center;
+    margin: 13rem 0 4rem;
+    height: 10px;
+}
+
+.complete-circle {
+    margin: 0 0.5%;
+    width: 15px;
+    position: relative;
+}
+
+.complete-circle-big {
+    position: relative;
+    bottom: 40px;
+    margin: 0 0.5%;
+    width: 25px;
+}
+
+.complete-welcome {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.complete-footer {
+    margin-top: 14rem;
+    padding: 2rem 0 4rem;
+    font-size: 0.7rem;
+}
+
+/* interest.html  */
+.interest-container {
+    text-align: center;
+    padding: 7% 15%;
+}
+
+.interest-h1 {
+    margin: 3rem 0;
+}
+
+.interest-card-p {
+    font-size: 1.3rem;
+}
+
+.interest-card-circle {
+    width: 1rem;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.card {
+    width: 14rem;
+    position: relative;
+    margin: 1rem auto;
+}
+
+.card-big {
+    width: 15rem;
+    position: relative;
+    margin: 1rem auto 0;
+}
+
+.interest-next {
+    margin: 3rem 0;
+}
+
+.interest-footer {
+    margin: 3rem 0;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+/* upload-popup.html */
+.upload-img {
+    width: 100%;
+}
+
+.upload-container-right {
+    text-align: left;
+}
+
+.upload-h1 {
+    margin-bottom: 3rem;
+}
+
+.upload-hr-top {
+    margin-bottom: 3rem;
+}
+
+.upload-upload-btn {
+    position: absolute;
+    top: 0.5rem;
+}
+
+.upload-delete {
+    display: block;
+    margin-right: auto;	
+}
+
+.upload-heart {
+    display: block;
+    margin: 6rem auto 1rem;
+}
+
+.upload-heart-num {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.upload-container-right textarea {
+    height: 4.8rem;
+}
+
+@media (max-width:991px) {
+    .upload-img {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 1198px) and (min-width: 992px) {
+    .upload-heart {
+        display: block;
+        margin: 4.2rem auto 1rem;
+    }
+
+    .upload-heart-num {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+}
+
+.upload-hr-top {
+    margin: 3rem 0 3rem; 
+}
+
+.upload-goal {
+    width: 4rem;
+    margin: 0.5rem;
+}
+
+.upload-btn {
+    margin-top: 3rem;
+}
+
+.upload-next {
+    margin: 0 1rem;
+}
+
+.upload-cancel {
+    margin: 0 1rem;
+}
+
+.upload-img-container {
+    height: 1px;
+    margin-bottom: 6rem;
+}
+
+@media (max-width: 1198px) and (min-width: 811px) {
+    .upload-img-container {
+        height: 1px;
+        margin-bottom: 11rem;
+    }
+}
+
+@media (max-width:810px) {
+    .upload-img-container {
+        height: 1px;
+        margin-bottom: 16rem;
+    }
+}
+
+/* profile.html */
+.profile-default-image {
+    border-radius: 100%;
+    width: 13rem;
+}
+
+.profile-top-container {
+    padding: 7% 10%;
+}
+
+.profile-introduction {
+    margin-top: 1.5rem;
+}
+
+.profile-name {
+    margin-top: 2rem;
+}
+
+.profile-interest {
+    margin-top: 0.5rem;
+    width: 3rem;
+}
+
+@media (max-width: 810px) {
+    .profile-interest {
+        margin-top: 0.5rem;
+        width: 2.2rem;
+    }
+}
+
+.profile-feed {
+    padding: 10% 15%;
+    background-color: white;
+}
+
+.profile-card-p {
+    font-size: 0.8rem;
+}
+
+.profile-footer {
+    margin: 3rem 0;
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+/* feed.html */
+.feed-container {
+    border-radius: 1%;
+    margin: 5% 0;
+}
+
+.feed-img {
+    height: auto;
+	width: 21rem;
+}
+
+.feed-container-right {
+    text-align: left;
+    padding-left: 3rem;
+    border-left: 1px solid rgb(224, 224, 224);
+}
+
+.feed-heart {
+    display: block;
+    margin: 4rem auto 1rem;
+}
+
+.feed-heart-num {
+    text-align: center;
+}
+
+.feed-container {
+    text-align: center;
+    padding: 7% 15%;
+}
+
+.feed-p {
+    position: static;
+    margin-top: 5rem;
+}
+
+@media (max-width:991px) {
+    .feed-img {
+        margin-bottom: 1rem;
+    }
+
+    .feed-heart {
+        width: 20px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .feed-heart-num h4{
+        font-size: 1rem;
+    }
+
+    .feed-container-right {
+        text-align: center;
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .feed-p {
+        position: static;
+        margin-top: 0.5rem;
+    }
+}

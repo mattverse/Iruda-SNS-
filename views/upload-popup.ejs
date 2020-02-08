@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Iruda</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/style.css">
+        
+    </head>
+    <body class="dark-background">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand font-bold" href="#">이루다</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-dropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbar-dropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link font-medium" href="#">친구</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-medium" href="#">구경하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link font-medium font-pink" href="#">로그아웃</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="interest-container white-background">
+                <h3 class="font-medium-black interest-h1">게시글 업로드</h3>
+                <!-- 날짜 -->
+                <h1 class="upload-h1 font-bold-black"><%= date%></h1>
+                <hr class="upload-hr-top">
+
+
+
+
+                <form action="/board/write" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img class="upload-img" src="/images/profile_default.png" alt="">
+                        </div>
+                        <div class="col-lg-6 upload-container-right">
+                            <input class="upload-delete btn btn-sm btn-outline-danger" type="file" name="userFile" id="userFile" value="사진 업로드">
+                            <img class="upload-heart" src="/images/heart.png" alt="">
+                            <!-- 하트 갯수 -->
+                            <div class="upload-heart-num">
+                                <h4 class="font-light-black">0</h4>
+                            </div>
+                            <p class="upload-alert font-light-black">사진에 대해 설명해주세요.</p>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">메시지</span>
+                                </div>
+                                <input type="text" name="description" id="description" class="form-control" aria-label="메시지">
+                                <!-- <textarea id="description" class="form-control" aria-label="메시지"></textarea> -->
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="upload-hr-top">
+                    <p>연관 목표를 선택하세요.</p>
+                    <div class="upload-img-container">
+                        <input type="checkbox" name="exercise" id="exercise_btn" style="display: none;">
+                        <img class="upload-goal upload-goal1" src="/images/exercise.png" alt="">
+
+                        <input type="checkbox" name="smoke" id="smoke_btn" style="display: none;">
+                        <img class="upload-goal upload-goal2" src="/images/smoke.png" alt="">
+
+                        <input type="checkbox" name="selfdev" id="selfdev_btn"style="display: none;">
+                        <img class="upload-goal upload-goal3" src="/images/selfdev.png" alt="">
+
+                        <input type="checkbox" name="money" id="money_btn" style="display: none;">
+                        <img class="upload-goal upload-goal4" src="/images/save.png" alt="">
+
+                        <input type="checkbox" name="certificate" id="certificate_btn" style="display: none;">
+                        <img class="upload-goal upload-goal5" src="/images/certificate.png" alt="">
+
+                        <input type="checkbox" name="language" id="language_btn" style="display: none;">
+                        <img class="upload-goal upload-goal6" src="/images/language.png" alt="">
+
+                        <input type="checkbox" name="alcohol" id="alcohol_btn" style="display: none;">
+                        <img class="upload-goal upload-goal7" src="/images/alcohol.png" alt="">
+
+                        <input type="checkbox" name="travel" id="travel_btn" style="display: none;">
+                        <img class="upload-goal upload-goal8" src="/images/travel.png" alt="">
+
+                        <input type="checkbox" name="book" id="book_btn" style="display: none;">
+                        <img class="upload-goal upload-goal9" src="/images/book.png" alt="">
+                    </div>
+                    <hr>
+                    <div class="upload-btn">
+                        <input type="submit" value="업로드" class="btn btn-lg btn-outline-danger upload-next" id="give_info">
+                        <!-- <button class="btn btn-lg btn-outline-danger upload-next" id="give_info">업로드</button> -->
+                        <button class="btn btn-lg btn-outline-danger upload-cancel">취소</button>
+                    </div>
+                </form>
+
+
+
+
+            </div>
+        </div>
+        <footer class="interest-footer dark-background">
+            <p class="font-light">Copyright 2020 Freeman Inc. All rights reserved.</p>
+        </footer>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/js/upload-popup.js"></script>
+</html>
