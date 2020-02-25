@@ -1,4 +1,4 @@
-module.exports = function(app, router){
+module.exports = function(router, passport){
     
     
 
@@ -48,35 +48,49 @@ module.exports = function(app, router){
     var login_picture;
 
 
-    router.route('/process/login').post(function(req, res){
-        var paramId = req.body.id || req.query.id;
-        var paramPassword = req.body.password || req.query.password;
-        var database = req.app.get('database');
-        user_data(database, paramId);
-        login_id = paramId;
-        app.set('login_id', login_id);
-        login_password = paramPassword
-        if (database.db) {
-                authUser(database, paramId, paramPassword, function(err, docs) {
-                    if (err) {
-                        console.error('Error while logging in : ' + err.stack);
-                        return;
-                    }
+    // router.route('/process/login').post(function(req, res){
+    //     var paramId = req.body.id || req.query.id;
+    //     var paramPassword = req.body.password || req.query.password;
+    //     var database = req.app.get('database');
+    //     user_data(database, paramId);
+    //     login_id = paramId;
+    //     app.set('login_id', login_id);
+    //     login_password = paramPassword
+    //     if (database.db) {
+    //             authUser(database, paramId, paramPassword, function(err, docs) {
+    //                 if (err) {
+    //                     console.error('Error while logging in : ' + err.stack);
+    //                     return;
+    //                 }
                     
-                    if (docs) {        
-                        var username = docs[0].name;
-                        var userid = docs[0].id;
-                        login_email = docs[0].email;
-                        res.redirect('/board/' + login_id);
-                    }
-                    else { 
-                }
-            });
-        } 
-        else {  
-            console.log('no dB')
-        }
+    //                 if (docs) {        
+    //                     var username = docs[0].name;
+    //                     var userid = docs[0].id;
+    //                     login_email = docs[0].email;
+    //                     res.redirect('/board/' + login_id);
+    //                 }
+    //                 else { 
+    //             }
+    //         });
+    //     } 
+    //     else {  
+    //         console.log('no dB')
+    //     }
+    // })
+
+    router.route('/process/login').post(passport.authenticate('local-login', {
+        successRedirect : '/board/load_profile',
+        failureRedirect : '/login', 
+        failureFlash : true 
+    }));
+
+    router.route('/board/load_profile').get(function(req, res){
+        // console.log("IN LOAD BOARD PROFILE");
+        res.redirect('/board/' + req.user.id);
+        
     })
+
+
 
     router.route('/process/profile_id').post(function(req, res){
         res.send({login_id: login_id});
@@ -88,9 +102,9 @@ module.exports = function(app, router){
     })
 
     
-    router.route('/gotoprofile').get(function(req, res){
-        res.redirect('/board/' + login_id);
-    })
+    // router.route('/gotoprofile').get(function(req, res){
+    //     res.redirect('/board/' + login_id);
+    // })
 
 
     var exercise = false;
