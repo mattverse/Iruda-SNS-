@@ -1,82 +1,12 @@
 module.exports = function(router, passport){
     
-    
+    var login_email = 'l@l';
+    var login_name;
+    var login_id;
 
     router.route('/').get(function(req, res){
         res.redirect('/public/homepage.html');
     })
-
-
-
-    router.route('/process/register').post(function(req, res) {
-        var database = req.app.get('database');
-        var paramId = 	req.body.id || 	req.query.id;
-        var paramPassword = req.body.password || req.query.password;
-        var paramName = req.body.name || req.query.name;
-        var paramEmail = req.body.email || req.body.email;
-        login_name = paramName;
-        login_id = paramId;
-        app.set('login_id', login_id);
-        login_password = paramPassword;
-        login_email = paramEmail;
-        if (database.db) {
-            addUser_profile(database, paramName, paramId, paramPassword, paramEmail, function(err, addedUser) {
-                if (err) {
-                    console.error('사용자 추가 중 에러 발생 : ' + err.stack)
-                    return;
-                }
-                if (addedUser) {
-                    console.dir(addedUser);
-                    res.redirect('/public/interest.html');
-                } 
-                else {  
-                }
-            });
-        } 
-        
-        else {  
-            
-        }
-
-    });
-
-
-    var login_email = 'l@l';
-    var login_name;
-    var login_id;
-    var login_password;
-    var login_picture;
-
-
-    // router.route('/process/login').post(function(req, res){
-    //     var paramId = req.body.id || req.query.id;
-    //     var paramPassword = req.body.password || req.query.password;
-    //     var database = req.app.get('database');
-    //     user_data(database, paramId);
-    //     login_id = paramId;
-    //     app.set('login_id', login_id);
-    //     login_password = paramPassword
-    //     if (database.db) {
-    //             authUser(database, paramId, paramPassword, function(err, docs) {
-    //                 if (err) {
-    //                     console.error('Error while logging in : ' + err.stack);
-    //                     return;
-    //                 }
-                    
-    //                 if (docs) {        
-    //                     var username = docs[0].name;
-    //                     var userid = docs[0].id;
-    //                     login_email = docs[0].email;
-    //                     res.redirect('/board/' + login_id);
-    //                 }
-    //                 else { 
-    //             }
-    //         });
-    //     } 
-    //     else {  
-    //         console.log('no dB')
-    //     }
-    // })
 
     router.route('/process/login').post(passport.authenticate('local-login', {
         successRedirect : '/board/load_profile',
@@ -84,27 +14,23 @@ module.exports = function(router, passport){
         failureFlash : true 
     }));
 
+    router.route('/process/register').post(passport.authenticate('local-signup', {
+        successRedirect : '/public/interest.html', 
+        failureRedirect : '/signup', 
+        failureFlash : true 
+    }));
+
     router.route('/board/load_profile').get(function(req, res){
-        // console.log("IN LOAD BOARD PROFILE");
         res.redirect('/board/' + req.user.id);
-        
     })
-
-
 
     router.route('/process/profile_id').post(function(req, res){
         res.send({login_id: login_id});
     })
 
     router.route('/process/profile_name').post(function(req, res){
-        // console.log('in processing...profile..');
         res.send({login_name:login_name });
     })
-
-    
-    // router.route('/gotoprofile').get(function(req, res){
-    //     res.redirect('/board/' + login_id);
-    // })
 
 
     var exercise = false;
@@ -121,7 +47,6 @@ module.exports = function(router, passport){
         var data = req.body.data;
         var database = req.app.get('database');
         var arr = data.split(" ");
-
         for(var i =0; i<arr.length; i++){
             if(arr[i] === "exercise")   exercise = true;
             else if(arr[i] === "smoke") smoke = true;
@@ -133,17 +58,25 @@ module.exports = function(router, passport){
             else if(arr[i] === "travel") travel = true;
             else if(arr[i] === "book")  book = true;
         } 
-        database.UserModel_profile.find({name: login_name}).remove().exec();
-        addUser_profile(database, login_name, login_id, login_password, login_email, function(err, addedUser){
+        var login_name = req.user.name;
+        var login_id = req.user.id;
+        var login_email = req.user.email;   
+        var salt = req.user.salt;
+        var hased_password = req.user.hashed_password;
+        database.UserModel_profile.findOneAndDelete({name:login_name}, function(err){
+            if(err) console.log(err);
+        })
+        addUser_profile(database, login_name, login_id, salt, hased_password, login_email, function(err, addedUser){
             if(err){
                 console.log('error while adding users category');
                 return;
             }
             if(addedUser){
-                console.log('succesfully updated user profile');
-                // console.log(UserModel_profile.find({name: login_name}));
                 var finish = "/board/" + login_id;
-                res.send({finish:finish});
+                res.send({finish: finish});
+            }
+            else{
+                console.log("HERE");
             }
         });
     })
@@ -153,13 +86,29 @@ module.exports = function(router, passport){
         res.redirect('/public/upload-popup.html');
     })
 
+///TO DO: if accessed through login, works fine but if accessed after register, doesn't work.
     router.get('/board/:id', function(req, res){
         var database = req.app.get('database');
-        database.BoardModel_profile.find({author:login_id}, function(err, board){
-            res.render('profile', {board: board, login_name: login_name, login_email: login_email});
-        })
+        var login_name = req.user.name;
+        var login_email = req.user.email;
+    
+        database.BoardModel_profile.find({author:req.user.id}, function(err, board){
+            res.render('profile.ejs', {board: board, login_name: login_name, login_email: login_email});
+        });
     });
 
+    var addUser_profile = function(database, name, id, salt, hased_password, email, callback){
+        
+        var temp_user = new database.UserModel_profile({'name': name, 'id': id, 'salt': salt,'hashed_password':hased_password, 'email':email, 'exercise': exercise, 'smoke' : smoke, 'selfdev': selfdev, 'money': money, 'certificate': certificate, 'language': language, 'alcohol':alcohol, 'travel': travel, 'book':book}); 
+        temp_user.save(function(err,addedUser){
+            if(err){
+                callback(err,null);
+                return ;
+            
+            }
+            callback(null, addedUser);
+        })
+    }
 
     var user_interest_1 = "";
     var user_interest_2 = "" ;
@@ -196,72 +145,6 @@ module.exports = function(router, passport){
     });
 
     
-    var addUser_profile = function(database, name, id, password, email, callback){
-        var temp_user = new database.UserModel_profile({'name': name, 'id': id, 'password': password, 'email':email, 'exercise': exercise, 'smoke' : smoke, 'selfdev': selfdev, 'money': money, 'certificate': certificate, 'language': language, 'alcohol':alcohol, 'travel': travel, 'book':book}); 
-        temp_user.save(function(err,addedUser){
-            if(err){
-                callback(err,null);
-                return ;
-            
-            }
-            callback(null, addedUser);
-        })
-    }
-
-    var authUser = function(database, id, password, callback){
-        var user_interest_1 = "";
-        var user_interest_2 = "" ;
-        var user_interest_3 = "";
-        var user_interest_4 = "" ;	
-        var user_interest_5 = "";
-        var user_interest_6 = "";
-        var user_interest_7 = "";
-        var user_interest_8 = "";
-        var user_interest_9 = "";
-        database.UserModel_profile.findById(id, function(err, results){
-        
-            if (err){
-                callback(err, null);
-                return;
-            }
-            
-            if(results.length > 0){
-                exercise = results[0].exercise;
-                smoke = results[0].smoke;
-                selfdev = results[0].selfdev;
-                money = results[0].money;
-                certificate = results[0].certificate;
-                language = results[0].language;
-                alcohol = results[0].alcohol;
-                travel = results[0].travel;
-                book = results[0].book;
-                
-                var user = new database.UserModel_profile({id:id});
-                var authenticated = user.authenticate(password, results[0]._doc.salt, results[0]._doc.hashed_password);
-                
-                if(authenticated){
-                    callback(null, results);
-                }
-                else{
-                    callback(null, null);
-                }
-            }
-        })
-    }
-
-    var user_data = function(database, id){
-        database.UserModel_profile.findById(id, function(err, results){
-            if(err){
-                console.log('error in user_data');
-                return ;
-            }
-
-            if(results.length > 0){
-                login_name = results[0].name;
-            }
-        })
-    }
-
 
     
 }
